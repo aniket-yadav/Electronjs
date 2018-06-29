@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Add Shopping List Item</title>
+<style> body { background: white; /* WebKit/Blink Browsers */ }
+ 
+ button {
+   margin-top: 30px;
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    font-size: 100%;  
+    text-align: center;
+    float: left;
+    padding: 12px 12px;
+
+}
+form{
+	text-align: center;
+	
+}
+label{
+float: left; 
+font-weight: bold;
+font-size: 120%;
+}
+input{
+margin-top: 10px;
+width: 100%;
+padding: 12px 20px ;
+box-sizing: border-box;
+font-size: 100%
+}
+
+
+ </style>
+</head>
+<body>
+<form>
+		<label> Enter Item </label><br>
+		<input id="item" type="text" autofocus><br>
+		<button type="submit">Add Item</button>
+</form>
+<script >
+	const electron  =require('electron');
+	const {ipcRenderer} = electron;
+	var form=document.querySelector('form');
+	form.addEventListener('submit',submitform);
+		function submitform(e){
+			e.preventDefault();
+			const item=document.querySelector('#item').value;
+			ipcRenderer.send('item:add',item);
+		}
+</script>
+</body>
+</html>

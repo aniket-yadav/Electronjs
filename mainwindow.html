@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Shopping List</title>
+<style>  body{ background: white; /* WebKit/Blink Browsers */ }h1{
+	text-align: center;
+	border: 3px solid green;
+
+} 
+ol,li{
+	margin: auto;
+    font-weight: bold;
+    font-size: 120%;
+    text-transform: capitalize;
+}
+</style>
+</head>
+<bod>
+<h1 >ShoppingList</h1>
+<ol id="dis"></ol>
+<script>
+	var listArray=[];
+	const electron=require('electron');
+	const {ipcRenderer}=electron;
+ ipcRenderer.on('item:add',function(e,item){
+	 if(item !==''){
+listArray.push(item);
+ }
+  var itemList='';
+ for(var i=0;i<listArray.length;i++){
+ 	itemList+='<li>'+listArray[i]+'</li>';
+ }
+ var ol=document.getElementById('dis');
+ ol.innerHTML=itemList;
+	});
+ipcRenderer.on('item:clear',function(){
+listArray.pop();
+var iL='';
+ for(var i=0;i<listArray.length;i++){
+ 	iL+='<li>'+listArray[i]+'</li>';
+ }
+ var ol=document.getElementById('dis');
+ ol.innerHTML=iL;
+	});
+</script>
+</body>
+</html>
